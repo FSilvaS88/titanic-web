@@ -6,7 +6,7 @@
     name="viewport"
     content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
   />
-  <title>Titanic Escape V4</title>
+  <title>Titanic Escape V5</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -26,10 +26,19 @@
         <span class="hud-label">Nivel</span>
         <span class="hud-value" id="level">1</span>
       </div>
+
+      <div class="hud-card record-card">
+        <span class="hud-label">Récord</span>
+        <span class="hud-value"><span id="bestScore">0</span> m</span>
+      </div>
     </header>
 
     <section id="game">
+      <div class="sky-glow"></div>
       <div class="ocean-overlay"></div>
+      <div class="wave wave-1"></div>
+      <div class="wave wave-2"></div>
+      <div class="wave wave-3"></div>
 
       <div id="ship">
         <img src="assets/img/titanic.png" alt="Titanic" id="shipImage" />
@@ -40,6 +49,7 @@
           <h1>Titanic Escape</h1>
           <p>Esquiva los icebergs y avanza lo máximo posible.</p>
           <p class="small-text">Usa los botones o desliza el dedo sobre el juego.</p>
+          <p class="best-text">Tu mejor marca: <span id="startBestScore">0</span> m</p>
           <button id="startBtn">Comenzar</button>
         </div>
       </div>
@@ -49,6 +59,7 @@
           <h2>¡Colisión!</h2>
           <p>Distancia: <span id="finalDistance">0</span> m</p>
           <p>Icebergs esquivados: <span id="finalDodged">0</span></p>
+          <p>Récord: <span id="finalBestScore">0</span> m</p>
           <button id="restartBtn">Reiniciar</button>
         </div>
       </div>

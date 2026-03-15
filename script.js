@@ -4,11 +4,14 @@ const ship = document.getElementById("ship");
 const distanceEl = document.getElementById("distance");
 const dodgedEl = document.getElementById("dodged");
 const levelEl = document.getElementById("level");
+const bestScoreEl = document.getElementById("bestScore");
+const startBestScoreEl = document.getElementById("startBestScore");
 
 const startScreen = document.getElementById("startScreen");
 const gameOverScreen = document.getElementById("gameOverScreen");
 const finalDistanceEl = document.getElementById("finalDistance");
 const finalDodgedEl = document.getElementById("finalDodged");
+const finalBestScoreEl = document.getElementById("finalBestScore");
 
 const startBtn = document.getElementById("startBtn");
 const restartBtn = document.getElementById("restartBtn");
@@ -24,6 +27,7 @@ let shipX = 0;
 let distance = 0;
 let dodged = 0;
 let level = 1;
+let bestScore = 0;
 
 let running = false;
 let animationId = null;
@@ -39,6 +43,23 @@ const keyboard = {
 
 let touchActive = false;
 let lastTouchX = 0;
+
+function loadBestScore() {
+  const saved = localStorage.getItem("titanic_best_score");
+  bestScore = saved ? Number(saved) : 0;
+  renderBestScore();
+}
+
+function saveBestScore() {
+  localStorage.setItem("titanic_best_score", String(bestScore));
+}
+
+function renderBestScore() {
+  const rounded = Math.floor(bestScore);
+  bestScoreEl.textContent = rounded;
+  startBestScoreEl.textContent = rounded;
+  finalBestScoreEl.textContent = rounded;
+}
 
 function setupSizes() {
   const rect = game.getBoundingClientRect();
@@ -187,6 +208,12 @@ function gameLoop(timestamp) {
 
   distance += 95 * dt + (level - 1) * 22 * dt;
 
+  if (distance > bestScore) {
+    bestScore = distance;
+    saveBestScore();
+    renderBestScore();
+  }
+
   const nextLevel = Math.floor(distance / 1000) + 1;
   if (nextLevel !== level) {
     level = nextLevel;
@@ -221,6 +248,7 @@ function startGame() {
   lastFrameTime = 0;
 
   updateHUD();
+  renderBestScore();
 
   startScreen.classList.remove("show");
   gameOverScreen.classList.remove("show");
@@ -238,6 +266,7 @@ function endGame() {
 
   finalDistanceEl.textContent = Math.floor(distance);
   finalDodgedEl.textContent = dodged;
+  renderBestScore();
 
   gameOverScreen.classList.add("show");
 }
@@ -312,5 +341,6 @@ restartBtn.addEventListener("click", startGame);
 
 window.addEventListener("resize", setupSizes);
 
+loadBestScore();
 setupSizes();
 updateHUD();
