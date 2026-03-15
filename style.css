@@ -83,7 +83,7 @@ body {
 #ship {
   position: absolute;
   left: 50%;
-  bottom: 20px;
+  bottom: 18px;
   transform: translateX(-50%);
   line-height: 1;
   user-select: none;
@@ -93,7 +93,7 @@ body {
 
 #shipImage {
   display: block;
-  width: 72px;
+  width: 86px;
   height: auto;
   object-fit: contain;
   pointer-events: none;
@@ -201,7 +201,7 @@ button {
   }
 
   #shipImage {
-    width: 64px;
+    width: 72px;
   }
 
   .hud-card {

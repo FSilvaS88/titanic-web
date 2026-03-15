@@ -45,8 +45,8 @@ function setupSizes() {
   gameWidth = rect.width;
   gameHeight = rect.height;
 
-  shipWidth = ship.offsetWidth || 50;
-  shipHeight = ship.offsetHeight || 50;
+  shipWidth = ship.offsetWidth || 86;
+  shipHeight = ship.offsetHeight || 40;
 
   if (!shipX || shipX > gameWidth - shipWidth) {
     shipX = (gameWidth - shipWidth) / 2;
@@ -102,10 +102,10 @@ function createIceberg() {
 
 function getShipRect() {
   return {
-    x: shipX + 8,
-    y: gameHeight - shipHeight - 20 + 8,
-    width: Math.max(20, shipWidth - 16),
-    height: Math.max(20, shipHeight - 16),
+    x: shipX + 10,
+    y: gameHeight - shipHeight - 18 + 8,
+    width: Math.max(30, shipWidth - 20),
+    height: Math.max(18, shipHeight - 10),
   };
 }
 
