@@ -78,16 +78,21 @@ function createIceberg() {
 
   const el = document.createElement("div");
   el.className = "iceberg";
-  el.textContent = "🧊";
 
-  const size = 28 + Math.random() * 22;
+  const img = document.createElement("img");
+  img.src = "assets/img/iceberg.png";
+  img.alt = "Iceberg";
+
+  const size = 34 + Math.random() * 28;
   const x = Math.random() * Math.max(20, gameWidth - size - 8);
   const speed = 170 + Math.random() * 120 + (level - 1) * 35;
 
   el.style.left = `${x}px`;
   el.style.top = `-${size}px`;
-  el.style.fontSize = `${size}px`;
+  el.style.width = `${size}px`;
+  el.style.height = `${size}px`;
 
+  el.appendChild(img);
   game.appendChild(el);
 
   icebergs.push({
@@ -147,8 +152,8 @@ function updateIcebergs(dt) {
     const icebergRect = {
       x: iceberg.x + 4,
       y: iceberg.y + 4,
-      width: Math.max(18, iceberg.size - 8),
-      height: Math.max(18, iceberg.size - 8),
+      width: Math.max(20, iceberg.size - 8),
+      height: Math.max(20, iceberg.size - 8),
     };
 
     if (overlaps(shipRect, icebergRect)) {

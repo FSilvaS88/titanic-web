@@ -103,10 +103,18 @@ body {
 
 .iceberg {
   position: absolute;
-  line-height: 1;
-  user-select: none;
   z-index: 2;
   will-change: top, left;
+  pointer-events: none;
+  user-select: none;
+}
+
+.iceberg img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.22));
 }
 
 .overlay {
