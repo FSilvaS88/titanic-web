@@ -85,11 +85,20 @@ body {
   left: 50%;
   bottom: 20px;
   transform: translateX(-50%);
-  font-size: 50px;
   line-height: 1;
   user-select: none;
   z-index: 3;
   will-change: left;
+}
+
+#shipImage {
+  display: block;
+  width: 72px;
+  height: auto;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+  filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.28));
 }
 
 .iceberg {
@@ -165,8 +174,20 @@ button {
 .controls button {
   width: 120px;
   height: 56px;
-  font-size: 28px;
   padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.controls button span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  font-size: 28px;
+  line-height: 1;
 }
 
 @media (max-width: 520px) {
@@ -179,8 +200,8 @@ button {
     min-height: 420px;
   }
 
-  #ship {
-    font-size: 46px;
+  #shipImage {
+    width: 64px;
   }
 
   .hud-card {
@@ -201,5 +222,9 @@ button {
   .controls button {
     width: 130px;
     height: 58px;
+  }
+
+  .controls button span {
+    font-size: 30px;
   }
 }

@@ -30,7 +30,10 @@
 
     <section id="game">
       <div class="ocean-overlay"></div>
-      <div id="ship">🚢</div>
+
+      <div id="ship">
+        <img src="assets/img/titanic.png" alt="Titanic" id="shipImage" />
+      </div>
 
       <div id="startScreen" class="overlay show">
         <div class="panel">
@@ -52,8 +55,13 @@
     </section>
 
     <div class="controls">
-      <button id="leftBtn" aria-label="Mover a la izquierda">⬅</button>
-      <button id="rightBtn" aria-label="Mover a la derecha">➡</button>
+      <button id="leftBtn" aria-label="Mover a la izquierda">
+        <span>←</span>
+      </button>
+
+      <button id="rightBtn" aria-label="Mover a la derecha">
+        <span>→</span>
+      </button>
     </div>
   </div>
 
