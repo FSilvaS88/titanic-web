@@ -1,57 +1,43 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Titanic Escape</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Titanic Escape</title>
+
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <div class="game-wrapper">
-    <header class="hud">
-      <div class="card">
-        <span class="label">Distancia</span>
-        <span class="value" id="distance">0 m</span>
-      </div>
-      <div class="card">
-        <span class="label">Esquivados</span>
-        <span class="value" id="dodged">0</span>
-      </div>
-      <div class="card">
-        <span class="label">Nivel</span>
-        <span class="value" id="level">1</span>
-      </div>
-    </header>
 
-    <main id="game">
-      <div id="ocean"></div>
-      <div id="ship">🚢</div>
+<div class="game-wrapper">
 
-      <div id="startScreen" class="overlay show">
-        <div class="panel">
-          <h1>Titanic Escape</h1>
-          <p>Esquiva los icebergs y avanza la mayor distancia posible.</p>
-          <p>Controles: flechas ← → o teclas A / D.</p>
-          <button id="startBtn">Comenzar</button>
-        </div>
-      </div>
+<div class="hud">
 
-      <div id="gameOverScreen" class="overlay">
-        <div class="panel">
-          <h2>¡Colisión!</h2>
-          <p id="finalDistance">Distancia: 0 m</p>
-          <p id="finalDodged">Icebergs esquivados: 0</p>
-          <button id="restartBtn">Reiniciar</button>
-        </div>
-      </div>
-    </main>
+<div class="stat">
+<span>Distancia</span>
+<strong id="distance">0 m</strong>
+</div>
 
-    <div class="controls">
-      <button id="leftBtn">←</button>
-      <button id="rightBtn">→</button>
-    </div>
-  </div>
+<div class="stat">
+<span>Esquivados</span>
+<strong id="dodged">0</strong>
+</div>
 
-  <script src="script.js"></script>
-</body>
-</html>
+<div class="stat">
+<span>Nivel</span>
+<strong id="level">1</strong>
+</div>
+
+</div>
+
+<div id="game">
+
+<div id="ship">🚢</div>
+
+<div id="gameOver" class="hidden">
+<h2>¡Colisión!</h2>
+<p>Distancia: <span id="finalDistance"></span></p>
+<p>Icebergs esquivados: <span id="finalDodged"></span></p>
+
+<button onclick="restartGame()">Reiniciar</

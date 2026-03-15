@@ -1,246 +1,124 @@
-const game = document.getElementById("game");
-const ship = document.getElementById("ship");
+const game = document.getElementById("game")
+const ship = document.getElementById("ship")
 
-const distanceEl = document.getElementById("distance");
-const dodgedEl = document.getElementById("dodged");
-const levelEl = document.getElementById("level");
+let shipX = game.offsetWidth / 2
 
-const startScreen = document.getElementById("startScreen");
-const gameOverScreen = document.getElementById("gameOverScreen");
+let icebergs = []
 
-const finalDistance = document.getElementById("finalDistance");
-const finalDodged = document.getElementById("finalDodged");
+let distance = 0
+let avoided = 0
+let level = 1
 
-const startBtn = document.getElementById("startBtn");
-const restartBtn = document.getElementById("restartBtn");
-const leftBtn = document.getElementById("leftBtn");
-const rightBtn = document.getElementById("rightBtn");
+let speed = 2
+let gameRunning = true
 
-let shipX = 0;
-let shipWidth = 54;
-let gameWidth = 0;
-let gameHeight = 0;
+function createIceberg(){
 
-let distance = 0;
-let dodged = 0;
-let level = 1;
+let iceberg = document.createElement("div")
+iceberg.className = "iceberg"
+iceberg.innerHTML = "🧊"
 
-let running = false;
-let animationId = null;
-let spawnInterval = null;
+let x = Math.random() * (game.offsetWidth - 30)
 
-const icebergs = [];
-const keys = {
-  left: false,
-  right: false,
-};
+iceberg.style.left = x + "px"
+iceberg.style.top = "-30px"
 
-function setupGameSize() {
-  const rect = game.getBoundingClientRect();
-  gameWidth = rect.width;
-  gameHeight = rect.height;
-  shipWidth = ship.getBoundingClientRect().width || 54;
-  shipX = (gameWidth / 2) - (shipWidth / 2);
-  ship.style.left = `${shipX}px`;
-  ship.style.transform = `translateX(0)`;
+game.appendChild(iceberg)
+
+icebergs.push(iceberg)
+
 }
 
-function updateHUD() {
-  distanceEl.textContent = `${Math.floor(distance)} m`;
-  dodgedEl.textContent = dodged;
-  levelEl.textContent = level;
+function updateGame(){
+
+if(!gameRunning) return
+
+distance += 1
+
+document.getElementById("distance").innerText = distance
+
+if(distance % 1000 === 0){
+
+level++
+speed += 0.5
+
+document.getElementById("level").innerText = level
+
 }
 
-function createIceberg() {
-  const iceberg = document.createElement("div");
-  iceberg.className = "iceberg";
-  iceberg.textContent = "🧊";
+icebergs.forEach((iceberg,index)=>{
 
-  const size = 30 + Math.random() * 22;
-  const x = Math.random() * (gameWidth - size);
-  const speed = 2 + Math.random() * 1.8 + (level - 1) * 0.5;
+let top = parseFloat(iceberg.style.top)
 
-  iceberg.style.left = `${x}px`;
-  iceberg.style.top = `-40px`;
-  iceberg.style.fontSize = `${size}px`;
+top += speed
 
-  game.appendChild(iceberg);
+iceberg.style.top = top + "px"
 
-  icebergs.push({
-    el: iceberg,
-    x,
-    y: -40,
-    size,
-    speed,
-    counted: false,
-  });
+let icebergX = parseFloat(iceberg.style.left)
+
+let shipLeft = ship.offsetLeft
+
+if(top > game.offsetHeight){
+
+iceberg.remove()
+icebergs.splice(index,1)
+
+avoided++
+document.getElementById("avoided").innerText = avoided
+
 }
 
-function moveShip() {
-  const shipSpeed = 7;
+if(
+top > game.offsetHeight - 80 &&
+icebergX < shipLeft + 40 &&
+icebergX + 30 > shipLeft
+){
 
-  if (keys.left) {
-    shipX -= shipSpeed;
-  }
+collision()
 
-  if (keys.right) {
-    shipX += shipSpeed;
-  }
-
-  if (shipX < 0) shipX = 0;
-  if (shipX > gameWidth - shipWidth) shipX = gameWidth - shipWidth;
-
-  ship.style.left = `${shipX}px`;
 }
 
-function getShipRect() {
-  return {
-    x: shipX,
-    y: gameHeight - 24 - 54,
-    width: shipWidth,
-    height: 54,
-  };
+})
+
 }
 
-function isColliding(a, b) {
-  return (
-    a.x < b.x + b.width &&
-    a.x + a.width > b.x &&
-    a.y < b.y + b.height &&
-    a.y + a.height > b.y
-  );
+function moveLeft(){
+
+shipX -= 40
+
+if(shipX < 0) shipX = 0
+
+ship.style.left = shipX + "px"
+
 }
 
-function updateIcebergs() {
-  const shipRect = getShipRect();
+function moveRight(){
 
-  for (let i = icebergs.length - 1; i >= 0; i--) {
-    const iceberg = icebergs[i];
-    iceberg.y += iceberg.speed;
-    iceberg.el.style.top = `${iceberg.y}px`;
+shipX += 40
 
-    const icebergRect = {
-      x: iceberg.x,
-      y: iceberg.y,
-      width: iceberg.size * 0.8,
-      height: iceberg.size * 0.8,
-    };
+if(shipX > game.offsetWidth - 40) shipX = game.offsetWidth - 40
 
-    if (isColliding(shipRect, icebergRect)) {
-      endGame();
-      return;
-    }
+ship.style.left = shipX + "px"
 
-    if (iceberg.y > gameHeight && !iceberg.counted) {
-      dodged++;
-      iceberg.counted = true;
-      updateHUD();
-    }
-
-    if (iceberg.y > gameHeight + 60) {
-      iceberg.el.remove();
-      icebergs.splice(i, 1);
-    }
-  }
 }
 
-function gameLoop() {
-  if (!running) return;
+function collision(){
 
-  distance += 2.4 + (level - 1) * 0.35;
+gameRunning = false
 
-  const newLevel = Math.floor(distance / 1000) + 1;
-  if (newLevel !== level) {
-    level = newLevel;
-  }
+document.getElementById("collision").classList.remove("hidden")
 
-  moveShip();
-  updateIcebergs();
-  updateHUD();
+document.getElementById("finalDistance").innerText = distance
+document.getElementById("finalAvoided").innerText = avoided
 
-  animationId = requestAnimationFrame(gameLoop);
 }
 
-function clearIcebergs() {
-  for (const iceberg of icebergs) {
-    iceberg.el.remove();
-  }
-  icebergs.length = 0;
+function restart(){
+
+location.reload()
+
 }
 
-function startGame() {
-  clearIcebergs();
-  setupGameSize();
+setInterval(createIceberg,1500)
 
-  distance = 0;
-  dodged = 0;
-  level = 1;
-
-  updateHUD();
-
-  startScreen.classList.remove("show");
-  gameOverScreen.classList.remove("show");
-
-  running = true;
-
-  clearInterval(spawnInterval);
-  spawnInterval = setInterval(() => {
-    if (running) createIceberg();
-  }, 900);
-
-  cancelAnimationFrame(animationId);
-  animationId = requestAnimationFrame(gameLoop);
-}
-
-function endGame() {
-  running = false;
-  clearInterval(spawnInterval);
-  cancelAnimationFrame(animationId);
-
-  finalDistance.textContent = `Distancia: ${Math.floor(distance)} m`;
-  finalDodged.textContent = `Icebergs esquivados: ${dodged}`;
-  gameOverScreen.classList.add("show");
-}
-
-function moveLeftButton() {
-  shipX -= 25;
-  if (shipX < 0) shipX = 0;
-  ship.style.left = `${shipX}px`;
-}
-
-function moveRightButton() {
-  shipX += 25;
-  if (shipX > gameWidth - shipWidth) shipX = gameWidth - shipWidth;
-  ship.style.left = `${shipX}px`;
-}
-
-document.addEventListener("keydown", (e) => {
-  if (e.key === "ArrowLeft" || e.key.toLowerCase() === "a") {
-    keys.left = true;
-  }
-
-  if (e.key === "ArrowRight" || e.key.toLowerCase() === "d") {
-    keys.right = true;
-  }
-});
-
-document.addEventListener("keyup", (e) => {
-  if (e.key === "ArrowLeft" || e.key.toLowerCase() === "a") {
-    keys.left = false;
-  }
-
-  if (e.key === "ArrowRight" || e.key.toLowerCase() === "d") {
-    keys.right = false;
-  }
-});
-
-leftBtn.addEventListener("click", moveLeftButton);
-rightBtn.addEventListener("click", moveRightButton);
-startBtn.addEventListener("click", startGame);
-restartBtn.addEventListener("click", startGame);
-
-window.addEventListener("resize", setupGameSize);
-
-setupGameSize();
-updateHUD();
-    
+setInterval(updateGame,20)
