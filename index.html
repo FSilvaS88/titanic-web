@@ -6,8 +6,9 @@
     name="viewport"
     content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
   />
-  <title>Titanic Escape V6</title>
+  <title>Titanic Escape</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
 </head>
 <body>
   <div class="app">
@@ -50,7 +51,7 @@
           <p>Esquiva los icebergs y avanza lo máximo posible.</p>
           <p class="small-text">Usa los botones o desliza el dedo sobre el juego.</p>
           <p class="best-text">Tu mejor marca: <span id="startBestScore">0</span> m</p>
-          <button id="startBtn">Comenzar</button>
+          <button id="startBtn" type="button">Comenzar</button>
         </div>
       </div>
 
@@ -58,4 +59,22 @@
         <div class="panel">
           <h2>¡Colisión!</h2>
           <p>Distancia: <span id="finalDistance">0</span> m</p>
-          <p>Icebergs esquivados: <span id="final
+          <p>Icebergs esquivados: <span id="finalDodged">0</span></p>
+          <p>Récord: <span id="finalBestScore">0</span> m</p>
+          <button id="restartBtn" type="button">Reiniciar</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="controls">
+      <button id="leftBtn" type="button" aria-label="Mover a la izquierda">
+        <span>←</span>
+      </button>
+
+      <button id="rightBtn" type="button" aria-label="Mover a la derecha">
+        <span>→</span>
+      </button>
+    </div>
+  </div>
+</body>
+</html>

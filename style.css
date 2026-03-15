@@ -132,57 +132,27 @@ body {
 }
 
 @keyframes waveMove1 {
-  0% {
-    transform: translateX(-3%) translateY(0);
-  }
-  25% {
-    transform: translateX(2%) translateY(4px);
-  }
-  50% {
-    transform: translateX(5%) translateY(8px);
-  }
-  75% {
-    transform: translateX(1%) translateY(3px);
-  }
-  100% {
-    transform: translateX(-3%) translateY(0);
-  }
+  0% { transform: translateX(-3%) translateY(0); }
+  25% { transform: translateX(2%) translateY(4px); }
+  50% { transform: translateX(5%) translateY(8px); }
+  75% { transform: translateX(1%) translateY(3px); }
+  100% { transform: translateX(-3%) translateY(0); }
 }
 
 @keyframes waveMove2 {
-  0% {
-    transform: translateX(4%) translateY(0);
-  }
-  25% {
-    transform: translateX(0%) translateY(6px);
-  }
-  50% {
-    transform: translateX(-4%) translateY(10px);
-  }
-  75% {
-    transform: translateX(1%) translateY(5px);
-  }
-  100% {
-    transform: translateX(4%) translateY(0);
-  }
+  0% { transform: translateX(4%) translateY(0); }
+  25% { transform: translateX(0%) translateY(6px); }
+  50% { transform: translateX(-4%) translateY(10px); }
+  75% { transform: translateX(1%) translateY(5px); }
+  100% { transform: translateX(4%) translateY(0); }
 }
 
 @keyframes waveMove3 {
-  0% {
-    transform: translateX(-2%) translateY(0);
-  }
-  25% {
-    transform: translateX(2%) translateY(5px);
-  }
-  50% {
-    transform: translateX(6%) translateY(9px);
-  }
-  75% {
-    transform: translateX(2%) translateY(4px);
-  }
-  100% {
-    transform: translateX(-2%) translateY(0);
-  }
+  0% { transform: translateX(-2%) translateY(0); }
+  25% { transform: translateX(2%) translateY(5px); }
+  50% { transform: translateX(6%) translateY(9px); }
+  75% { transform: translateX(2%) translateY(4px); }
+  100% { transform: translateX(-2%) translateY(0); }
 }
 
 #ship {
@@ -190,7 +160,6 @@ body {
   left: 50%;
   bottom: 18px;
   transform: translateX(-50%);
-  line-height: 1;
   user-select: none;
   z-index: 3;
   will-change: left;
